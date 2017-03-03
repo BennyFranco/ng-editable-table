@@ -43,4 +43,9 @@ export class EditableTableComponent implements OnInit {
   cancelEditing(selectedRow: TableRow) {
     this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
   }
+
+  deleteRow(selectedRow: TableRow) {
+    this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
+    this.tableRows = this.tableRows.filter(temporalRow => temporalRow !== selectedRow);
+  }
 }

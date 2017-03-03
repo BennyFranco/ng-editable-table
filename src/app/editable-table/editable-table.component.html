@@ -16,6 +16,7 @@
       <td>
         <button *ngIf="isEditing.indexOf(row) === -1" (click)="editRow(row)">Edit</button>
         <button *ngIf="!(isEditing.indexOf(row) == -1)" (click)="cancelEditing(row)">Ok</button>
+        <button  (click)="deleteRow(row)">Delete</button>
       </td>
     </tr>
   </tbody>
