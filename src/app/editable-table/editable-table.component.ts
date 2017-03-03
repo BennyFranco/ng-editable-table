@@ -12,6 +12,9 @@ export class EditableTableComponent implements OnInit {
   @Input('table-headers') tableHeaders: TableCell[] = [];
   @Input('table-cells') tableCells: TableCell[] = [];
   @Input('table-rows') tableRows: TableRow[] = [];
+  @Input('can-delete-rows') canDeleteRows = true;
+  @Input('can-edit-rows') canEditRows = true;
+  @Input('can-add-rows') canAddRows = true;
 
   isEditing: TableRow[] = [];
 
