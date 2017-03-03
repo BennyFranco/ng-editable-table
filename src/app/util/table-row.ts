@@ -1,7 +1,9 @@
-export class TableRow {
-    description: string;
+import { TableCell } from './table-cell';
 
-    constructor(description: string) {
-        this.description = description;
+export class TableRow {
+    cells: TableCell[];
+
+    constructor(cells: TableCell[]) {
+        this.cells = cells;
     }
 }

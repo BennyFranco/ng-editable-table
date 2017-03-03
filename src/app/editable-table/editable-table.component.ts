@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TableHeader } from '../util/table-header';
 import { TableRow } from '../util/table-row';
+import { TableCell } from '../util/table-cell';
+
 @Component({
   selector: 'nv-editable-table',
   templateUrl: './editable-table.component.html',
@@ -9,18 +10,28 @@ import { TableRow } from '../util/table-row';
 export class EditableTableComponent implements OnInit {
 
   isEditing: TableRow[] = [];
+  tableHeaders: TableCell[] = [];
+  tableCells: TableCell[] = [];
   tableRows: TableRow[] = [];
-  tableHeaders: TableHeader[] = [];
-  tablerow = new TableRow('camote');
 
   constructor() {
     this.tableHeaders.push(
-      new TableHeader('Header1')
+      new TableCell('Header 1'),
+      new TableCell('Header 2'),
+      new TableCell('Header 3'),
+      new TableCell('Header 4')
+    );
+
+    this.tableCells.push(
+      new TableCell('Item 1'),
+      new TableCell('Item 2'),
+      new TableCell('Item 3'),
+      new TableCell('Item 4')
     );
 
     this.tableRows.push(
-      new TableRow('Row1'),
-      new TableRow('Row1')
+      new TableRow(this.tableCells),
+      new TableRow(this.tableCells)
     );
   }
 

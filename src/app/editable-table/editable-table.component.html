@@ -1,16 +1,16 @@
 <table>
   <thead>
-    <tr *ngFor="let title of tableHeaders">
-      <th>{{title.description}}</th>
+    <tr>
+      <th *ngFor="let title of tableHeaders">{{title.content}}</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let row of tableRows; let i = index">
-      <td>
-        <span *ngIf="isEditing.indexOf(row) === -1">{{row.description}}</span>
+      <td *ngFor="let cell of row.cells">
+        <span *ngIf="isEditing.indexOf(row) === -1">{{cell.content}}</span>
         <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1)">
-          <input type="text" [(ngModel)]="row.description" [name]="row.description">
+          <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
         </div>
       </td>
       <td>
