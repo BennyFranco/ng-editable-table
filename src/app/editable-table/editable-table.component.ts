@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TableRow } from '../util/table-row';
 import { TableCell } from '../util/table-cell';
 
@@ -9,34 +9,31 @@ import { TableCell } from '../util/table-cell';
 })
 export class EditableTableComponent implements OnInit {
 
+  @Input('table-headers') tableHeaders: TableCell[] = [];
+  @Input('table-cells') tableCells: TableCell[] = [];
+  @Input('table-rows') tableRows: TableRow[] = [];
+
   isEditing: TableRow[] = [];
-  tableHeaders: TableCell[] = [];
-  tableCells: TableCell[] = [];
-  tableRows: TableRow[] = [];
 
   constructor() {
-    this.tableHeaders.push(
-      new TableCell('Header 1'),
-      new TableCell('Header 2'),
-      new TableCell('Header 3'),
-      new TableCell('Header 4')
-    );
-
-    this.tableCells.push(
-      new TableCell('Item 1'),
-      new TableCell('Item 2'),
-      new TableCell('Item 3'),
-      new TableCell('Item 4')
-    );
-
-    this.tableRows.push(
-      new TableRow(this.tableCells),
-      new TableRow(this.tableCells)
-    );
   }
 
   ngOnInit() {
 
+  }
+
+  addRow() {
+    const newCells: TableCell[] = [];
+    let newRow: TableRow;
+    for (let i = 0; i < this.tableHeaders.length; i++) {
+      newCells.push(new TableCell(''));
+    }
+
+    this.tableRows.push(
+      newRow = new TableRow(newCells)
+    );
+
+    this.isEditing.push(newRow);
   }
 
   editRow(selectedRow: TableRow) {
