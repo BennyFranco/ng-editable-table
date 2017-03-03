@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "../../ng-editable-table",
+    "outDir": "../../dist",
     "baseUrl": "./app",
     "target": "es5",
     "module": "es6",
@@ -30,6 +30,6 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     
-    "entryModule": "app/library/library.module#LibraryModule"
+    "entryModule": "app/editable-table/editable-table.module#EditableTableModule"
   }
 }

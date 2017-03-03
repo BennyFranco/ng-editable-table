@@ -1,2 +1,4 @@
-export * from './library/library.component';
-export * from './library/library.module';
+export * from './editable-table/editable-table.component';
+export * from './editable-table/editable-table.module';
+export * from './util/table-cell';
+export * from './util/table-row';

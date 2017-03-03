@@ -2,19 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EditableTableModule } from './editable-table/editable-table.module';
-import { TestingComponent } from './testing/testing.component';
+import { EditableTableComponent } from './editable-table.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     CommonModule,
-    FormsModule,
-    EditableTableModule
+    FormsModule
   ],
   declarations: [
-    TestingComponent
+    EditableTableComponent,
   ],
-  bootstrap: [TestingComponent]
+  exports: [EditableTableComponent],
 })
-export class AppModule { }
+export class EditableTableModule { }

@@ -4,8 +4,32 @@ import { TableCell } from '../util/table-cell';
 
 @Component({
   selector: 'nv-editable-table',
-  templateUrl: './editable-table.component.html',
-  styleUrls: ['./editable-table.component.css']
+  template: `
+              <table>
+              <thead>
+                <tr>
+                  <th *ngFor="let title of tableHeaders">{{title.content}}</th>
+                  <th *ngIf="canEditRows||canDeleteRows"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of tableRows; let i = index">
+                  <td *ngFor="let cell of row.cells">
+                    <span *ngIf="isEditing.indexOf(row) === -1">{{cell.content}}</span>
+                    <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1)">
+                      <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                    </div>
+                  </td>
+                  <td *ngIf="canEditRows||canDeleteRows">
+                    <button *ngIf="isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">Edit</button>
+                    <button *ngIf="!(isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">Ok</button>
+                    <button *ngIf="canDeleteRows" (click)="deleteRow(row)">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button (click)="addRow()" *ngIf="canAddRows">Add</button>
+  `
 })
 export class EditableTableComponent implements OnInit {
 
