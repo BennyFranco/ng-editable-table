@@ -1,3 +1,22 @@
-<p>
-  editable-table works!
-</p>
+<table>
+  <thead>
+    <tr *ngFor="let title of tableHeaders">
+      <th>{{title.description}}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of tableRows; let i = index">
+      <td>
+        <span *ngIf="isEditing.indexOf(row) === -1">{{row.description}}</span>
+        <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1)">
+          <input type="text" [(ngModel)]="row.description" [name]="row.description">
+        </div>
+      </td>
+      <td>
+        <button *ngIf="isEditing.indexOf(row) === -1" (click)="editRow(row)">Edit</button>
+        <button *ngIf="!(isEditing.indexOf(row) == -1)" (click)="cancelEditing(row)">Ok</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
