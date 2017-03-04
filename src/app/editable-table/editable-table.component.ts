@@ -34,7 +34,7 @@ import { TableCell } from '../util/table-cell';
 export class EditableTableComponent implements OnInit {
 
   @Input('table-headers') tableHeaders: string[] = [];
-  @Input('table-rows') tableRows: [string[]] = [[]];
+  @Input('table-rows') tableRows: string[][] = [];
   @Input('can-delete-rows') canDeleteRows = true;
   @Input('can-edit-rows') canEditRows = true;
   @Input('can-add-rows') canAddRows = true;
@@ -48,8 +48,6 @@ export class EditableTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.tableHeaders);
-
     for (const obj of this.tableHeaders) {
       this.tableHeadersObjects.push(
         new TableCell(obj)
@@ -57,12 +55,9 @@ export class EditableTableComponent implements OnInit {
     }
 
     let tableCells: TableCell[] = [];
-    console.log(this.tableRows);
 
     for (const row of this.tableRows) {
-      console.log(row);
       for (const cell of row) {
-        console.log(cell);
         tableCells.push(
           new TableCell(cell),
         );

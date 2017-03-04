@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { TestingComponent } from './testing.component';
+import { EditableTableModule } from '../editable-table/editable-table.module';
 
 describe('TestingComponent', () => {
   let component: TestingComponent;
@@ -11,9 +12,10 @@ describe('TestingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TestingComponent ]
+      declarations: [TestingComponent],
+      imports: [EditableTableModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
