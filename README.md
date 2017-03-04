@@ -1,5 +1,11 @@
 # ng-editable-table
 
+[![Build Status][travis-badge]][travis-badge-url]
+[![Dependency Status][david-badge]][david-badge-url]
+[![devDependency Status][david-dev-badge]][david-dev-badge-url]
+[![npm][npm-badge]][npm-badge-url]
+
+
 This is a dynamic table for angular, you can add, edit or delete rows.
 
 ## Install
@@ -81,3 +87,12 @@ You can customize the table options by the `nv-editable-table` directive, the av
     [can-add-rows]="true">
   </nv-editable-table>
 ```
+
+[travis-badge]: https://travis-ci.org/BennyFranco/ng-editable-table.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/BennyFranco/ng-editable-table
+[david-badge]: https://david-dm.org/BennyFranco/ng-editable-table.svg
+[david-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table
+[david-dev-badge]: https://david-dm.org/BennyFranco/ng-editable-table/dev-status.svg
+[david-dev-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table?type=dev
+[npm-badge]: https://badge.fury.io/js/ng-editable-table.png
+[npm-badge-url]: https://www.npmjs.com/package/ng-editable-table
