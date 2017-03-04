@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "6.9"
 
-before_install:
+before_script:
  - npm install -g angular-cli
  - export CHROME_BIN=/usr/bin/google-chrome
  - export DISPLAY=:99.0
