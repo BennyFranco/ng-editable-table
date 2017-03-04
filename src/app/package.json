@@ -12,7 +12,7 @@
     "e2e": "protractor",
     "build": "copy package.json src/app && ngm build -p src/app"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "^2.3.1",
     "@angular/compiler": "^2.3.1",
