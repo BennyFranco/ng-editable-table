@@ -7,5 +7,5 @@ before_script:
   - npm install
 
 script:
-  - ng test
+  - npm run test
   - npm run build
