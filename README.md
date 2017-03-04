@@ -31,42 +31,23 @@ import { EditableTableModule } from 'ng-editable-table/editable-table/editable-t
 ```
 
 ## Usage
-You need to create some TableCells and TableRows objects to use the `ng-editable-table` directive
+You need to create some arrays for haders and rows to use the `ng-editable-table` directive
 
 ```typescript
-import { TableRow } from 'ng-editable-table/util/table-row';
-import { TableCell } from 'ng-editable-table/util/table-cell';
-
 @Component({
   selector: 'app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    tableHeaders: TableCell[] = [];
-    tableCells: TableCell[] = [];
-    tableCells2: TableCell[] = [];
-    tableRows: TableRow[] = [];
+  tableHeaders = ['Header 1', 'Header 2', 'Header 3'];
+  tableRows = [
+    ['Cell', 'Cell', 'Cell'],
+    ['Cell', 'Cell', 'Cell'],
+    ['Cell', 'Cell', 'Cell']
+  ];
 
-    constructor() {
-    this.tableHeaders.push(
-      new TableCell('Header 1'),
-      new TableCell('Header 2'),
-      new TableCell('Header 3'),
-      new TableCell('Header 4')
-    );
-
-    this.tableCells.push(
-      new TableCell('Item 1'),
-      new TableCell('Item 2'),
-      new TableCell('Item 3'),
-      new TableCell('Item 4')
-    );
-
-    this.tableRows.push(
-      new TableRow(this.tableCells),
-    );
-  }
+    constructor() {}
 
   ...
 }
@@ -75,20 +56,20 @@ export class AppComponent {
 And finally add this directive to your html:
 
 ```html
-  <nv-editable-table [table-headers]="tableHeaders" [table-rows]="tableRows"></nv-editable-table>
+<nv-editable-table [table-headers]="tableHeaders" [table-rows]="tableRows" ></nv-editable-table>
 ```
 
 ## Directive Options
 
 You can customize the table options by the `nv-editable-table` directive, the available options are:
 
-|       Option      | Value          |    Description   |
-| ----------------- |----------------|------------------|
-| table-headers     | TableCell Array| An array of TableCell objects with headers name|
-| table-rows        | TableRow Array | An array of TableRows objects with TableCells  |
-| can-delete-rows   | true/false     | Enable or disable delete rows button           |
-| can-edit-rows     | true/false     | Enable or disable edit rows button             |
-| can-add-rows      | true/false     | Enable or disable add rows button              |
+|       Option      | Value                  | Description                                    |
+| ----------------- |------------------------|------------------------------------------------|
+| table-headers     | string Array           | An array of strings with headers name          |
+| table-rows        | Array of string Arrays | An array of string arrays with the rows content|
+| can-delete-rows   | true/false             | Enable or disable delete rows button           |
+| can-edit-rows     | true/false             | Enable or disable edit rows button             |
+| can-add-rows      | true/false             | Enable or disable add rows button              |
 
 ### Example
 ```html
