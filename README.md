@@ -94,5 +94,5 @@ You can customize the table options by the `nv-editable-table` directive, the av
 [david-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table
 [david-dev-badge]: https://david-dm.org/BennyFranco/ng-editable-table/dev-status.svg
 [david-dev-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table?type=dev
-[npm-badge]: https://badge.fury.io/js/ng-editable-table.png
+[npm-badge]: https://img.shields.io/badge/npm-v0.0.2-brightgreen.svg
 [npm-badge-url]: https://www.npmjs.com/package/ng-editable-table
