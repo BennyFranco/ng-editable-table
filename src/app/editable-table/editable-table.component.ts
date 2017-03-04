@@ -8,12 +8,12 @@ import { TableCell } from '../util/table-cell';
               <table>
               <thead>
                 <tr>
-                  <th *ngFor="let title of tableHeaders">{{title.content}}</th>
+                  <th *ngFor="let title of tableHeadersObjects">{{title.content}}</th>
                   <th *ngIf="canEditRows||canDeleteRows"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of tableRows; let i = index">
+                <tr *ngFor="let row of tableRowsObjects; let i = index">
                   <td *ngFor="let cell of row.cells">
                     <span *ngIf="isEditing.indexOf(row) === -1">{{cell.content}}</span>
                     <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1)">
@@ -33,11 +33,14 @@ import { TableCell } from '../util/table-cell';
 })
 export class EditableTableComponent implements OnInit {
 
-  @Input('table-headers') tableHeaders: TableCell[] = [];
-  @Input('table-rows') tableRows: TableRow[] = [];
+  @Input('table-headers') tableHeaders: string[] = [];
+  @Input('table-rows') tableRows: [string[]] = [[]];
   @Input('can-delete-rows') canDeleteRows = true;
   @Input('can-edit-rows') canEditRows = true;
   @Input('can-add-rows') canAddRows = true;
+
+  tableHeadersObjects: TableCell[] = [];
+  tableRowsObjects: TableRow[] = [];
 
   isEditing: TableRow[] = [];
 
@@ -45,17 +48,38 @@ export class EditableTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.tableHeaders);
 
+    for (const obj of this.tableHeaders) {
+      this.tableHeadersObjects.push(
+        new TableCell(obj)
+      );
+    }
+
+    let tableCells: TableCell[] = [];
+    console.log(this.tableRows);
+
+    for (const row of this.tableRows) {
+      console.log(row);
+      for (const cell of row) {
+        console.log(cell);
+        tableCells.push(
+          new TableCell(cell),
+        );
+      }
+      this.tableRowsObjects.push(new TableRow(tableCells));
+      tableCells = [];
+    }
   }
 
   addRow() {
     const newCells: TableCell[] = [];
     let newRow: TableRow;
-    for (let i = 0; i < this.tableHeaders.length; i++) {
+    for (let i = 0; i < this.tableHeadersObjects.length; i++) {
       newCells.push(new TableCell(''));
     }
 
-    this.tableRows.push(
+    this.tableRowsObjects.push(
       newRow = new TableRow(newCells)
     );
 
@@ -72,6 +96,6 @@ export class EditableTableComponent implements OnInit {
 
   deleteRow(selectedRow: TableRow) {
     this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
-    this.tableRows = this.tableRows.filter(temporalRow => temporalRow !== selectedRow);
+    this.tableRowsObjects = this.tableRowsObjects.filter(temporalRow => temporalRow !== selectedRow);
   }
 }
