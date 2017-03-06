@@ -132,4 +132,16 @@ describe('EditableTableComponent', () => {
     expect(component.isEditing.length).toBe(0);
   });
 
+  it('should accept any kind of models', () => {
+    const tableRows = [
+      [1, 'Cell', 'Cell'],
+      ['Cell', 2, 'Cell'],
+      ['Cell', 'Cell', 3]
+    ];
+
+    component.tableRows = tableRows;
+
+    expect(component.tableRows).toBe(tableRows);
+  });
+
 });

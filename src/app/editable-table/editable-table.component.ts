@@ -50,7 +50,7 @@ import { TableCell } from '../util/table-cell';
 export class EditableTableComponent implements OnInit {
 
   @Input('table-headers') tableHeaders: string[] = [];
-  @Input('table-rows') tableRows: string[][] = [];
+  @Input('table-rows') tableRows: any[][] = [];
   @Input('can-delete-rows') canDeleteRows = true;
   @Input('can-edit-rows') canEditRows = true;
   @Input('can-add-rows') canAddRows = true;

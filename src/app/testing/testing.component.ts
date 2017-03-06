@@ -9,9 +9,9 @@ export class TestingComponent implements OnInit {
 
   tableHeaders = ['Header 1', 'Header 2', 'Header 3'];
   tableRows = [
-    ['Cell', 'Cell', 'Cell'],
-    ['Cell', 'Cell', 'Cell'],
-    ['Cell', 'Cell', 'Cell']
+    [1, 'Cell', 'Cell'],
+    ['Cell', 2, 'Cell'],
+    ['Cell', 'Cell', 3]
   ];
 
   constructor() {
