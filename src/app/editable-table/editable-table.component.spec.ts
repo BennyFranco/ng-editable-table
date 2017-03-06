@@ -66,7 +66,7 @@ describe('EditableTableComponent', () => {
   });
 
   it('should have an add row button', () => {
-    let nativeElement = <HTMLElement>addRowButtonDebugElement.nativeElement;
+    const nativeElement = <HTMLElement>addRowButtonDebugElement.nativeElement;
     expect(nativeElement.textContent).toBe('Add');
   });
 

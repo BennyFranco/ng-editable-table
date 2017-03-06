@@ -1,4 +1,11 @@
 <p>
   testing works!
 </p>
-<nv-editable-table [table-headers]="tableHeaders" [table-rows]="tableRows" class="ui table"></nv-editable-table>
+<nv-editable-table [table-headers]="tableHeaders" 
+                   [table-rows]="tableRows"  
+                   [add-button-label] = "'Añadir'"
+                   [edit-button-label] = "'Editar'"
+                   [save-button-label] = "''"
+                   [delete-button-label] = "'Borrar'"
+                   class="ui table">
+</nv-editable-table>

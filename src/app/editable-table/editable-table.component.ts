@@ -21,14 +21,22 @@ import { TableCell } from '../util/table-cell';
                     </div>
                   </td>
                   <td *ngIf="canEditRows||canDeleteRows">
-                    <button *ngIf="isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">Edit</button>
-                    <button *ngIf="!(isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">Ok</button>
-                    <button *ngIf="canDeleteRows" (click)="deleteRow(row)">Delete</button>
+                    <button class={{editButtonClass}} *ngIf="isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
+                      <i class="{{editIcon}}"></i>{{editButtonLabel}}
+                    </button>
+                    <button class={{editButtonClass}} *ngIf="!(isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">
+                      <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
+                    </button>
+                    <button class={{deleteButtonClass}} *ngIf="canDeleteRows" (click)="deleteRow(row)">
+                      <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
+                    </button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <button (click)="addRow()" *ngIf="canAddRows">Add</button>
+           <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
+              <i class="{{addIcon}}"></i>{{addButtonLabel}}
+           </button>
   `
 })
 export class EditableTableComponent implements OnInit {
@@ -38,6 +46,21 @@ export class EditableTableComponent implements OnInit {
   @Input('can-delete-rows') canDeleteRows = true;
   @Input('can-edit-rows') canEditRows = true;
   @Input('can-add-rows') canAddRows = true;
+
+  @Input('add-button-label') addButtonLabel = 'Add';
+  @Input('edit-button-label') editButtonLabel = 'Edit';
+  @Input('save-button-label') saveButtonLabel = 'Ok';
+  @Input('delete-button-label') deleteButtonLabel = 'Delete';
+
+  @Input('add-icon') addIcon: string;
+  @Input('edit-icon') editIcon: string;
+  @Input('save-icon') saveIcon: string;
+  @Input('delete-icon') deleteIcon: string;
+
+  @Input('add-button-class') addButtonClass: string;
+  @Input('edit-button-class') editButtonClass: string;
+  @Input('delete-button-class') deleteButtonClass: string;
+
   @Input('class') class: string;
 
   tableHeadersObjects: TableCell[] = [];
