@@ -5,7 +5,7 @@ import { TableCell } from '../util/table-cell';
 @Component({
   selector: 'nv-editable-table',
   template: `
-              <table>
+              <table class="{{class}}">
               <thead>
                 <tr>
                   <th *ngFor="let title of tableHeadersObjects">{{title.content}}</th>
@@ -13,7 +13,7 @@ import { TableCell } from '../util/table-cell';
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of tableRowsObjects; let i = index">
+                <tr *ngFor="let row of tableRowsObjects">
                   <td *ngFor="let cell of row.cells">
                     <span *ngIf="isEditing.indexOf(row) === -1">{{cell.content}}</span>
                     <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1)">
@@ -38,6 +38,7 @@ export class EditableTableComponent implements OnInit {
   @Input('can-delete-rows') canDeleteRows = true;
   @Input('can-edit-rows') canEditRows = true;
   @Input('can-add-rows') canAddRows = true;
+  @Input('class') class: string;
 
   tableHeadersObjects: TableCell[] = [];
   tableRowsObjects: TableRow[] = [];
