@@ -65,11 +65,6 @@ describe('EditableTableComponent', () => {
     expect(table.hasChildNodes).toBeTruthy();
   });
 
-  it('should have an add row button', () => {
-    const nativeElement = <HTMLElement>addRowButtonDebugElement.nativeElement;
-    expect(nativeElement.textContent).toBe('Add');
-  });
-
   it('function addRow() should add a new row', () => {
     component.addRow();
     expect(component.tableRowsObjects.length).toBe(1);

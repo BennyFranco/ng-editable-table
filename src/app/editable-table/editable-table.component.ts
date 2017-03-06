@@ -13,14 +13,14 @@ import { TableCell } from '../util/table-cell';
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of tableRowsObjects">
-                  <td *ngFor="let cell of row.cells">
+                <tr class="{{trClass}}" *ngFor="let row of tableRowsObjects">
+                  <td class={{tdClass}} *ngFor="let cell of row.cells">
                     <span *ngIf="isEditing.indexOf(row) === -1">{{cell.content}}</span>
                     <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1)">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
                     </div>
                   </td>
-                  <td *ngIf="canEditRows||canDeleteRows">
+                  <td class={{tdClass}} *ngIf="canEditRows||canDeleteRows">
                     <button class={{editButtonClass}} *ngIf="isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
                       <i class="{{editIcon}}"></i>{{editButtonLabel}}
                     </button>
@@ -33,11 +33,19 @@ import { TableCell } from '../util/table-cell';
                   </td>
                 </tr>
               </tbody>
+              <tfoot>
+                <tr>
+                  <th *ngFor="let title of tableHeadersObjects"></th>
+                  <th *ngIf="canEditRows||canDeleteRows">
+                      <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
+                          <i class="{{addIcon}}"></i>{{addButtonLabel}}
+                      </button>
+                  </th>
+                </tr>
+              </tfoot>
             </table>
-           <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
-              <i class="{{addIcon}}"></i>{{addButtonLabel}}
-           </button>
-  `
+  `,
+  styles: [`tfoot{text-align: right;}`]
 })
 export class EditableTableComponent implements OnInit {
 
@@ -61,6 +69,8 @@ export class EditableTableComponent implements OnInit {
   @Input('edit-button-class') editButtonClass: string;
   @Input('delete-button-class') deleteButtonClass: string;
 
+  @Input('tr-class') trClass: string;
+  @Input('td class') tdClass: string;
   @Input('class') class: string;
 
   tableHeadersObjects: TableCell[] = [];
