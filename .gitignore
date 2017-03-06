@@ -39,4 +39,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-src/app/package.json
+/src/app/package.json
