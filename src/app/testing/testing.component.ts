@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EditableTableService } from '../editable-table/editable-table.service';
 
 @Component({
   selector: 'nv-testing',
@@ -14,10 +15,15 @@ export class TestingComponent implements OnInit {
     ['Cell', 'Cell', true]
   ];
 
-  constructor() {
+  constructor(private service: EditableTableService) {
+
   }
 
   ngOnInit() {
+  }
+
+  onRemove(row: any) {
+    console.log(row);
   }
 
 }

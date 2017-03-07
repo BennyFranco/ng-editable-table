@@ -1,6 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
 import { TableRow } from '../util/table-row';
 import { TableCell } from '../util/table-cell';
+
+import { EditableTableService } from './editable-table.service';
+
 
 @Component({
   selector: 'nv-editable-table',
@@ -8,34 +13,34 @@ import { TableCell } from '../util/table-cell';
               <table class="{{class}}">
               <thead>
                 <tr>
-                  <th *ngFor="let title of tableHeadersObjects">{{title.content}}</th>
+                  <th *ngFor="let title of service.tableHeadersObjects">{{title.content}}</th>
                   <th *ngIf="canEditRows||canDeleteRows"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="{{trClass}}" *ngFor="let row of tableRowsObjects">
+                <tr class="{{trClass}}" *ngFor="let row of service.tableRowsObjects">
                   <td class={{tdClass}} *ngFor="let cell of row.cells">
-                    <span *ngIf="isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) !== 'boolean'">{{cell.content}}</span>
-                    <span *ngIf="isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) == 'boolean'">
+                    <span *ngIf="service.isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) !== 'boolean'">{{cell.content}}</span>
+                    <span *ngIf="service.isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) == 'boolean'">
                       {{cell.content ? 'Activo' : 'Inactivo'}}
                     </span>
-                    <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean'">
+                    <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean'">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
                     </div>
-                    <div *ngIf="!(isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
-                        <div class="ui toggle checkbox">
-                            <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
-                            <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
-                        </div>
-                    </div>
+        <div *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
+                <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
+            </div>
+        </div>
                   </td>
                   <td class={{buttonsTdClass}} *ngIf="canEditRows||canDeleteRows">
-                    <button class={{editButtonClass}} *ngIf="isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
+                    <button class={{editButtonClass}} *ngIf="service.isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
                       <i class="{{editIcon}}"></i>{{editButtonLabel}}
                     </button>
-                    <button class={{editButtonClass}} *ngIf="!(isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">
-                      <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
-                    </button>
+      <button class={{editButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">
+        <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
+      </button>
                     <button class={{deleteButtonClass}} *ngIf="canDeleteRows" (click)="deleteRow(row)">
                       <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
                     </button>
@@ -44,7 +49,7 @@ import { TableCell } from '../util/table-cell';
               </tbody>
               <tfoot>
                 <tr>
-                  <th *ngFor="let title of tableHeadersObjects"></th>
+                  <th *ngFor="let title of service.tableHeadersObjects"></th>
                   <th *ngIf="canEditRows||canDeleteRows">
                       <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
                           <i class="{{addIcon}}"></i>{{addButtonLabel}}
@@ -54,7 +59,8 @@ import { TableCell } from '../util/table-cell';
               </tfoot>
             </table>
   `,
-  styles: [`tfoot{text-align: right;}`]
+  styles: [`tfoot{text-align: right;}`],
+  providers: [EditableTableService]
 })
 export class EditableTableComponent implements OnInit {
 
@@ -83,17 +89,18 @@ export class EditableTableComponent implements OnInit {
   @Input('buttons-td-class') buttonsTdClass: string;
   @Input('class') class: string;
 
-  tableHeadersObjects: TableCell[] = [];
-  tableRowsObjects: TableRow[] = [];
+  @Output() onSave = new EventEmitter<any>();
+  @Output() onRemove = new EventEmitter<any>();
 
-  isEditing: TableRow[] = [];
+  service: EditableTableService;
 
-  constructor() {
+  constructor(service: EditableTableService) {
+    this.service = service;
   }
 
   ngOnInit() {
     for (const obj of this.tableHeaders) {
-      this.tableHeadersObjects.push(
+      this.service.tableHeadersObjects.push(
         new TableCell(obj)
       );
     }
@@ -106,42 +113,27 @@ export class EditableTableComponent implements OnInit {
           new TableCell(cell),
         );
       }
-      this.tableRowsObjects.push(new TableRow(tableCells));
+      this.service.tableRowsObjects.push(new TableRow(tableCells));
       tableCells = [];
     }
   }
 
   addRow() {
-    const newCells: TableCell[] = [];
-    let newRow: TableRow;
-    for (let i = 0; i < this.tableHeadersObjects.length; i++) {
-      if (this.tableRowsObjects[0].cells == null) {
-        newCells.push(new TableCell(''));
-      } else if (this.checkTypeOf(this.tableRowsObjects[0].cells[i].content) === 'boolean') {
-        newCells.push(new TableCell(false));
-      } else {
-        newCells.push(new TableCell(''));
-      }
-    }
-
-    this.tableRowsObjects.push(
-      newRow = new TableRow(newCells)
-    );
-
-    this.isEditing.push(newRow);
+    this.service.addRow();
   }
 
   editRow(selectedRow: TableRow) {
-    this.isEditing.push(selectedRow);
+    this.service.editRow(selectedRow);
   }
 
   cancelEditing(selectedRow: TableRow) {
-    this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
+    this.service.cancelEditing(selectedRow);
+    this.onSave.emit(selectedRow);
   }
 
   deleteRow(selectedRow: TableRow) {
-    this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
-    this.tableRowsObjects = this.tableRowsObjects.filter(temporalRow => temporalRow !== selectedRow);
+    this.service.deleteRow(selectedRow);
+    this.onRemove.emit(selectedRow);
   }
 
   checkTypeOf(value: any): string {
