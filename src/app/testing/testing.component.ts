@@ -25,5 +25,4 @@ export class TestingComponent implements OnInit {
   onRemove(row: any) {
     console.log(row);
   }
-
 }
