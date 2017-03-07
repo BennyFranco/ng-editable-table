@@ -15,7 +15,10 @@ import { TableCell } from '../util/table-cell';
               <tbody>
                 <tr class="{{trClass}}" *ngFor="let row of tableRowsObjects">
                   <td class={{tdClass}} *ngFor="let cell of row.cells">
-                    <span *ngIf="isEditing.indexOf(row) === -1">{{cell.content}}</span>
+                    <span *ngIf="isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) !== 'boolean'">{{cell.content}}</span>
+                    <span *ngIf="isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) == 'boolean'">
+                      {{cell.content ? 'Activo' : 'Inactivo'}}
+                    </span>
                     <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean'">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
                     </div>
