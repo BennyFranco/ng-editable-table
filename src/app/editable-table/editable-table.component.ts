@@ -128,12 +128,22 @@ export class EditableTableComponent implements OnInit {
 
   cancelEditing(selectedRow: TableRow) {
     this.service.cancelEditing(selectedRow);
-    this.onSave.emit(selectedRow);
+    const dir = [];
+
+    for (let i = 0; i < selectedRow.cells.length; i++) {
+      dir.push({ i: selectedRow.cells[i] });
+    }
+    this.onSave.emit(dir);
   }
 
   deleteRow(selectedRow: TableRow) {
     this.service.deleteRow(selectedRow);
-    this.onRemove.emit(selectedRow);
+    const dir = [];
+
+    for (let i = 0; i < selectedRow.cells.length; i++) {
+      dir.push({ row: selectedRow.cells[i].content });
+    }
+    this.onRemove.emit(dir);
   }
 
   checkTypeOf(value: any): string {
