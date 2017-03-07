@@ -115,7 +115,9 @@ export class EditableTableComponent implements OnInit {
     const newCells: TableCell[] = [];
     let newRow: TableRow;
     for (let i = 0; i < this.tableHeadersObjects.length; i++) {
-      if (this.checkTypeOf(this.tableRowsObjects[0].cells[i].content) === 'boolean') {
+      if (this.tableRowsObjects[0].cells == null) {
+        newCells.push(new TableCell(''));
+      } else if (this.checkTypeOf(this.tableRowsObjects[0].cells[i].content) === 'boolean') {
         newCells.push(new TableCell(false));
       } else {
         newCells.push(new TableCell(''));
