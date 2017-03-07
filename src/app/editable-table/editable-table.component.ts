@@ -29,7 +29,7 @@ import { TableCell } from '../util/table-cell';
                         </div>
                     </div>
                   </td>
-                  <td class={{tdClass}} *ngIf="canEditRows||canDeleteRows">
+                  <td class={{buttonsTdClass}} *ngIf="canEditRows||canDeleteRows">
                     <button class={{editButtonClass}} *ngIf="isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
                       <i class="{{editIcon}}"></i>{{editButtonLabel}}
                     </button>
@@ -79,7 +79,8 @@ export class EditableTableComponent implements OnInit {
   @Input('delete-button-class') deleteButtonClass: string;
 
   @Input('tr-class') trClass: string;
-  @Input('td class') tdClass: string;
+  @Input('td-class') tdClass: string;
+  @Input('buttons-td-class') buttonsTdClass: string;
   @Input('class') class: string;
 
   tableHeadersObjects: TableCell[] = [];
