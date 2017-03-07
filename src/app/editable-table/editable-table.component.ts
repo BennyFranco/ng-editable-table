@@ -16,8 +16,14 @@ import { TableCell } from '../util/table-cell';
                 <tr class="{{trClass}}" *ngFor="let row of tableRowsObjects">
                   <td class={{tdClass}} *ngFor="let cell of row.cells">
                     <span *ngIf="isEditing.indexOf(row) === -1">{{cell.content}}</span>
-                    <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1)">
+                    <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean'">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                    </div>
+                    <div *ngIf="checkTypeOf(cell.content) == 'boolean'" class="field checkboxContainer">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
+                            <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
+                        </div>
                     </div>
                   </td>
                   <td class={{tdClass}} *ngIf="canEditRows||canDeleteRows">
@@ -126,5 +132,12 @@ export class EditableTableComponent implements OnInit {
   deleteRow(selectedRow: TableRow) {
     this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
     this.tableRowsObjects = this.tableRowsObjects.filter(temporalRow => temporalRow !== selectedRow);
+  }
+
+  checkTypeOf(value: any): string {
+    if (typeof (value) === 'boolean') {
+      return 'boolean';
+    }
+    return '';
   }
 }

@@ -11,7 +11,7 @@ export class TestingComponent implements OnInit {
   tableRows = [
     [1, 'Cell', 'Cell'],
     ['Cell', 2, 'Cell'],
-    ['Cell', 'Cell', 3]
+    ['Cell', 'Cell', true]
   ];
 
   constructor() {
