@@ -22,7 +22,7 @@ import { TableCell } from '../util/table-cell';
                     <div class="ui input" *ngIf="!(isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean'">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
                     </div>
-                    <div *ngIf="checkTypeOf(cell.content) == 'boolean'" class="field checkboxContainer">
+                    <div *ngIf="!(isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
                         <div class="ui toggle checkbox">
                             <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
                             <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
