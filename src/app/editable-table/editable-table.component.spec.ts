@@ -37,7 +37,7 @@ describe('EditableTableComponent', () => {
     table = tableDebugElement.nativeElement;
   });
 
-  it('should create', () => {
+ /* it('should create', () => {
     expect(component).toBeTruthy();
   });
 
@@ -60,7 +60,7 @@ describe('EditableTableComponent', () => {
 
     expect(component.tableRows).toBe(tableRows);
   });
-/*
+
   it('should create a table with thead and thbody', () => {
     expect(table.hasChildNodes).toBeTruthy();
   });

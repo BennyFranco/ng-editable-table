@@ -131,7 +131,7 @@ export class EditableTableComponent implements OnInit {
     const dir = [];
 
     for (let i = 0; i < selectedRow.cells.length; i++) {
-      dir.push({ i: selectedRow.cells[i] });
+      dir.push({ cell: selectedRow.cells[i] });
     }
     this.onSave.emit(dir);
   }
@@ -141,7 +141,7 @@ export class EditableTableComponent implements OnInit {
     const dir = [];
 
     for (let i = 0; i < selectedRow.cells.length; i++) {
-      dir.push({ row: selectedRow.cells[i].content });
+      dir.push({ cell: selectedRow.cells[i].content });
     }
     this.onRemove.emit(dir);
   }
