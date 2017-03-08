@@ -38,9 +38,9 @@ import { EditableTableService } from './editable-table.service';
                     <button class={{editButtonClass}} *ngIf="service.isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
                       <i class="{{editIcon}}"></i>{{editButtonLabel}}
                     </button>
-      <button class={{editButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">
-        <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
-      </button>
+                    <button class={{editButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">
+                      <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
+                    </button>
                     <button class={{deleteButtonClass}} *ngIf="canDeleteRows" (click)="deleteRow(row)">
                       <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
                     </button>
@@ -66,6 +66,7 @@ export class EditableTableComponent implements OnInit {
 
   @Input('table-headers') tableHeaders: string[] = [];
   @Input('table-rows') tableRows: any[][] = [];
+  @Input('table-rows-with-id') tableRowsWithId: any[][] = [];
   @Input('can-delete-rows') canDeleteRows = true;
   @Input('can-edit-rows') canEditRows = true;
   @Input('can-add-rows') canAddRows = true;
@@ -107,14 +108,26 @@ export class EditableTableComponent implements OnInit {
 
     let tableCells: TableCell[] = [];
 
-    for (const row of this.tableRows) {
-      for (const cell of row) {
-        tableCells.push(
-          new TableCell(cell),
-        );
+    if (this.tableRows.length > 0) {
+      for (const row of this.tableRows) {
+        for (const cell of row) {
+          tableCells.push(
+            new TableCell(cell),
+          );
+        }
+        this.service.tableRowsObjects.push(new TableRow(tableCells));
+        tableCells = [];
       }
-      this.service.tableRowsObjects.push(new TableRow(tableCells));
-      tableCells = [];
+    } else if (this.tableRowsWithId.length > 0) {
+      for (const row of this.tableRowsWithId) {
+        for (let i = 1; i < row.length; i++) {
+          tableCells.push(
+            new TableCell(row[i]),
+          );
+        }
+        this.service.tableRowsObjects.push(new TableRow(tableCells, row[0]));
+        tableCells = [];
+      }
     }
   }
 
@@ -131,9 +144,11 @@ export class EditableTableComponent implements OnInit {
     const dir = [];
 
     for (let i = 0; i < selectedRow.cells.length; i++) {
-      dir.push({ cell: selectedRow.cells[i].content });
+      dir.push(selectedRow.cells[i].content);
     }
-    this.onSave.emit(dir);
+    const obj = { id: selectedRow.id, cells: dir };
+
+    this.onSave.emit(obj);
   }
 
   deleteRow(selectedRow: TableRow) {
@@ -141,9 +156,11 @@ export class EditableTableComponent implements OnInit {
     const dir = [];
 
     for (let i = 0; i < selectedRow.cells.length; i++) {
-      dir.push({ cell: selectedRow.cells[i].content });
+      dir.push(selectedRow.cells[i].content);
     }
-    this.onRemove.emit(dir);
+    const obj = { id: selectedRow.id, cells: dir };
+
+    this.onRemove.emit(obj);
   }
 
   checkTypeOf(value: any): string {
