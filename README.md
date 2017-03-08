@@ -71,13 +71,15 @@ You can customize the table options by the `nv-editable-table` directive, the av
 |       Option        | Value                  | Description                                    |
 | ------------------- |------------------------|------------------------------------------------|
 | table-headers       | String Array           | An array of strings with headers name          |
-| table-rows          | Array of string Arrays | An array of string arrays with the rows content|
+| table-rows          | Array of any []        | An array of any[] with the rows content        |
+| table-rows-with-id  | Array of any []        | An array of any[] with the rows content, using the first value like row ID, useful to identify objects and rows                                          |
 | can-delete-rows     | true/false             | Enable or disable delete rows button           |
 | can-edit-rows       | true/false             | Enable or disable edit rows button             |
 | can-add-rows        | true/false             | Enable or disable add rows button              |
 | add-button-label    | String                 | String label for add button                    |
 | edit-button-label   | String                 | String label for edit button                   |
 | save-button-label   | String                 | String label for save button                   |
+| cancel-button-label | String                 | String label for cancel button                 |
 | delete-button-label | String                 | String label for delete button                 |
 | add-icon            | String                 | Icon class for add button                      |
 | edit-icon           | String                 | Icon class for edit button                     |
@@ -88,7 +90,17 @@ You can customize the table options by the `nv-editable-table` directive, the av
 | delete-button-class | String                 | Delete button class                            |
 | tr-class            | String                 | Table row class                                |
 | td-class            | String                 | Table cell class                               |
+| buttons-td-class    | String                 | Buttons column class                           |
 
+You can catch the edit and delete events using the directive outputs:
+
+| Option              |  Description                                              |
+| ------------------- | --------------------------------------------------------- |
+| onSave              |  Return an event when the button save is clicked          |
+| onRemove            |  Returns an event when the button remove is clicked       |
+
+The structure of the event is `{id: number, cells: Array[]}`, the id works like an identificator
+of the row or some object, and the cells array saves the content of the each cell in the row.
 
 ### Example
 ```html
