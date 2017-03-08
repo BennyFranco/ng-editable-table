@@ -36,7 +36,11 @@ export class EditableTableService {
     this.isEditing.push(selectedRow);
   }
 
-  cancelEditing(selectedRow: TableRow) {
+  saveRow(selectedRow: TableRow) {
+    this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
+  }
+
+  cancelEdition(selectedRow: TableRow) {
     this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
   }
 

@@ -38,11 +38,17 @@ import { EditableTableService } from './editable-table.service';
                     <button class={{editButtonClass}} *ngIf="service.isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
                       <i class="{{editIcon}}"></i>{{editButtonLabel}}
                     </button>
-                    <button class={{editButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows" (click)="cancelEditing(row)">
+                    <button class={{editButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows" 
+                      (click)="saveRow(row)">
                       <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
                     </button>
-                    <button class={{deleteButtonClass}} *ngIf="canDeleteRows" (click)="deleteRow(row)">
+                    <button class={{deleteButtonClass}} *ngIf="canDeleteRows && service.isEditing.indexOf(row) === -1" 
+                    (click)="deleteRow(row)">
                       <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
+                    </button>
+                    <button class={{deleteButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows"
+                     (click)="cancelEdition(row)">
+                      <i class="{{deleteIcon}}"></i>{{cancelButtonLabel}}
                     </button>
                   </td>
                 </tr>
@@ -74,6 +80,7 @@ export class EditableTableComponent implements OnInit {
   @Input('add-button-label') addButtonLabel = 'Add';
   @Input('edit-button-label') editButtonLabel = 'Edit';
   @Input('save-button-label') saveButtonLabel = 'Ok';
+  @Input('cancel-button-label') cancelButtonLabel = 'Cancel';
   @Input('delete-button-label') deleteButtonLabel = 'Delete';
 
   @Input('add-icon') addIcon: string;
@@ -139,8 +146,12 @@ export class EditableTableComponent implements OnInit {
     this.service.editRow(selectedRow);
   }
 
-  cancelEditing(selectedRow: TableRow) {
-    this.service.cancelEditing(selectedRow);
+  cancelEdition(selectedRow: TableRow) {
+    this.service.cancelEdition(selectedRow);
+  }
+
+  saveRow(selectedRow: TableRow) {
+    this.service.saveRow(selectedRow);
     const dir = [];
 
     for (let i = 0; i < selectedRow.cells.length; i++) {
