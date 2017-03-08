@@ -10,11 +10,8 @@ export class TestingComponent implements OnInit {
 
   tableHeaders = ['Header 1', 'Header 2', 'Header 3'];
 
-  tableRowsWithId = [
-    [1, 1, 'Cell', true],
-    [2, 'Cell', 2, true],
-    [3, 'Cell', 'Cell', true]
-  ];
+  tableRowsWithId = [];
+  dataType = ['string', 'string', 'boolean'];
 
   constructor(private service: EditableTableService) {
 

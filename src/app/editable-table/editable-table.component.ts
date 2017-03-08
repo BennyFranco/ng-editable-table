@@ -96,6 +96,8 @@ export class EditableTableComponent implements OnInit {
   @Input('td-class') tdClass: string;
   @Input('buttons-td-class') buttonsTdClass: string;
   @Input('class') class: string;
+  @Input('data-type') dataType = [];
+
 
   @Output() onSave = new EventEmitter<any>();
   @Output() onRemove = new EventEmitter<any>();
@@ -111,6 +113,8 @@ export class EditableTableComponent implements OnInit {
       this.service.tableHeadersObjects.push(
         new TableCell(obj)
       );
+
+      this.service.dataType = this.dataType;
     }
 
     let tableCells: TableCell[] = [];

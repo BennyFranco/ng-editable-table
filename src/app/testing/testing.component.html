@@ -2,5 +2,5 @@
   testing works!
 </p>
 <nv-editable-table [table-headers]="tableHeaders" [table-rows-with-id]="tableRowsWithId" [add-button-label]="'Añadir'" [edit-button-label]="'Editar'"
-  [save-button-label]="'Guardar'" [delete-button-label]="'Borrar'" (onRemove)="onRemove($event)" class="ui table">
+  [save-button-label]="'Guardar'" [delete-button-label]="'Borrar'" [data-type]="dataType" (onRemove)="onRemove($event)" class="ui table">
 </nv-editable-table>
