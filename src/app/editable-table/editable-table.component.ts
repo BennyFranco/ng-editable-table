@@ -77,16 +77,16 @@ export class EditableTableComponent implements OnInit {
   @Input('can-edit-rows') canEditRows = true;
   @Input('can-add-rows') canAddRows = true;
 
-  @Input('add-button-label') addButtonLabel = 'Add';
-  @Input('edit-button-label') editButtonLabel = 'Edit';
-  @Input('save-button-label') saveButtonLabel = 'Ok';
-  @Input('cancel-button-label') cancelButtonLabel = 'Cancel';
-  @Input('delete-button-label') deleteButtonLabel = 'Delete';
+  @Input('add-button-label') addButtonLabel: string;
+  @Input('edit-button-label') editButtonLabel: string;
+  @Input('save-button-label') saveButtonLabel: string;
+  @Input('cancel-button-label') cancelButtonLabel: string;
+  @Input('delete-button-label') deleteButtonLabel: string;
 
-  @Input('add-icon') addIcon: string;
-  @Input('edit-icon') editIcon: string;
-  @Input('save-icon') saveIcon: string;
-  @Input('delete-icon') deleteIcon: string;
+  @Input('add-icon') addIcon = 'fa fa-plus';
+  @Input('edit-icon') editIcon = 'fa fa-pencil-square-o';
+  @Input('save-icon') saveIcon = 'fa fa-check';
+  @Input('delete-icon') deleteIcon = 'fa fa-times';
 
   @Input('add-button-class') addButtonClass: string;
   @Input('edit-button-class') editButtonClass: string;

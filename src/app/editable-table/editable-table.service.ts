@@ -24,13 +24,6 @@ export class EditableTableService {
         default:
           newCells.push(new TableCell(''));
       }
-      /* if (this.tableRowsObjects.length < 1) {
-        newCells.push(new TableCell(''));
-      } else if (this.checkTypeOf(this.tableRowsObjects[0].cells[i].content) === 'boolean') {
-        newCells.push(new TableCell(false));
-      } else {
-        newCells.push(new TableCell(''));
-      }*/
     }
 
     this.tableRowsObjects.push(
