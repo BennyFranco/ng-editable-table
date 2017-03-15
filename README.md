@@ -138,3 +138,94 @@ of the row or some object, and the cells array saves the content of the each cel
 [npm-badge-url]: https://www.npmjs.com/package/ng-editable-table
 [example-image-one]: https://raw.githubusercontent.com/BennyFranco/ng-editable-table/trunk/src/assets/normal.png
 [example-image-two]: https://raw.githubusercontent.com/BennyFranco/ng-editable-table/trunk/src/assets/editing.png
+
+# Advance Example
+If you need more control in the structure of the table, you can use the `EditableTableService` and implement your custom table like this.
+
+### Component
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { EditableTableService } from 'ng-editable-table/editable-table/editable-table.service';
+
+@Component({
+  selector: 'app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+
+  tableHeaders = ['Header 1', 'Header 2', 'Header 3'];
+
+  tableRowsWithId = [
+    [1, 'Example', 'Example', true]
+  ];
+  dataType = ['string', 'string', 'boolean'];
+
+  constructor(private service: EditableTableService) {
+  }
+
+  ngOnInit() {
+    this.service.createTableWithIds(this.tableHeaders, this.tableRowsWithId, this.dataType);
+  }
+
+  ...
+}
+```
+
+### View (HTML)
+
+```html
+<h1>Advance example</h1>
+<table>
+      <thead>
+            <tr>
+                  <th *ngFor="let title of service.tableHeadersObjects">{{title.content}}</th>
+                  <th></th>
+            </tr>
+      </thead>
+      <tbody>
+            <tr *ngFor="let row of service.tableRowsObjects">
+                  <td *ngFor="let cell of row.cells">
+                        <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) !== 'boolean'">{{cell.content}}</span>
+                        <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) == 'boolean'">
+                      {{cell.content ? 'Activo' : 'Inactivo'}}
+                    </span>
+                        <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) !== 'boolean'">
+                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                        </div>
+                        <div *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
+                              <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
+                                    <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
+                              </div>
+                        </div>
+                  </td>
+                  <td>
+                        <button *ngIf="service.isEditing.indexOf(row) === -1 " (click)="service.editRow(row)">
+                      <i class="fa fa-pencil-square-o"></i>
+                    </button>
+                        <button *ngIf="!(service.isEditing.indexOf(row) == -1)" (click)="service.saveRow(row)">
+                      <i class="fa fa-check"></i>
+                    </button>
+                        <button *ngIf="service.isEditing.indexOf(row) === -1" (click)="service.deleteRow(row)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                        <button *ngIf="!(service.isEditing.indexOf(row) == -1) " (click)="service.cancelEdition(row)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </td>
+            </tr>
+      </tbody>
+      <tfoot>
+            <tr>
+                  <th *ngFor="let title of service.tableHeadersObjects"></th>
+                  <th>
+                        <button (click)="service.addRow()">
+                          <i class="fa fa-plus"></i>
+                      </button>
+                  </th>
+            </tr>
+      </tfoot>
+</table>
+```
