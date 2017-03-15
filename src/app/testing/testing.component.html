@@ -29,16 +29,16 @@
                   </td>
                   <td>
                         <button *ngIf="service.isEditing.indexOf(row) === -1 " (click)="service.editRow(row)">
-                      <i class="fa fa-pencil-square-o"></i>{{editButtonLabel}}
+                      <i class="fa fa-pencil-square-o"></i>
                     </button>
                         <button *ngIf="!(service.isEditing.indexOf(row) == -1)" (click)="service.saveRow(row)">
-                      <i class="fa fa-check"></i>{{saveButtonLabel}}
+                      <i class="fa fa-check"></i>
                     </button>
                         <button *ngIf="service.isEditing.indexOf(row) === -1" (click)="service.deleteRow(row)">
-                      <i class="fa fa-times"></i>{{deleteButtonLabel}}
+                      <i class="fa fa-times"></i>
                     </button>
                         <button *ngIf="!(service.isEditing.indexOf(row) == -1) " (click)="service.cancelEdition(row)">
-                      <i class="fa fa-times"></i>{{cancelButtonLabel}}
+                      <i class="fa fa-times"></i>
                     </button>
                   </td>
             </tr>
@@ -47,8 +47,8 @@
             <tr>
                   <th *ngFor="let title of service.tableHeadersObjects"></th>
                   <th>
-                        <button (click)="addRow()">
-                          <i class="fa fa-plus"></i>{{addButtonLabel}}
+                        <button (click)="service.addRow()">
+                          <i class="fa fa-plus"></i>
                       </button>
                   </th>
             </tr>
