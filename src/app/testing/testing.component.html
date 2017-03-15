@@ -1,7 +1,56 @@
-<nv-editable-table 
-      [table-headers]="tableHeaders" 
-      [table-rows-with-id]="tableRowsWithId" 
-      [data-type]="dataType" 
-      (onRemove)="onRemove($event)" 
+<nv-editable-table [table-headers]="tableHeaders" [table-rows-with-id]="tableRowsWithId" [data-type]="dataType" (onRemove)="onRemove($event)"
       class="ui table">
 </nv-editable-table>
+<hr/>
+<h1>Advance example</h1>
+<table>
+      <thead>
+            <tr>
+                  <th *ngFor="let title of service.tableHeadersObjects">{{title.content}}</th>
+                  <th></th>
+            </tr>
+      </thead>
+      <tbody>
+            <tr *ngFor="let row of service.tableRowsObjects">
+                  <td *ngFor="let cell of row.cells">
+                        <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) !== 'boolean'">{{cell.content}}</span>
+                        <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) == 'boolean'">
+                      {{cell.content ? 'Activo' : 'Inactivo'}}
+                    </span>
+                        <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) !== 'boolean'">
+                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                        </div>
+                        <div *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
+                              <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
+                                    <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
+                              </div>
+                        </div>
+                  </td>
+                  <td>
+                        <button *ngIf="service.isEditing.indexOf(row) === -1 " (click)="service.editRow(row)">
+                      <i class="fa fa-pencil-square-o"></i>{{editButtonLabel}}
+                    </button>
+                        <button *ngIf="!(service.isEditing.indexOf(row) == -1)" (click)="service.saveRow(row)">
+                      <i class="fa fa-check"></i>{{saveButtonLabel}}
+                    </button>
+                        <button *ngIf="service.isEditing.indexOf(row) === -1" (click)="service.deleteRow(row)">
+                      <i class="fa fa-times"></i>{{deleteButtonLabel}}
+                    </button>
+                        <button *ngIf="!(service.isEditing.indexOf(row) == -1) " (click)="service.cancelEdition(row)">
+                      <i class="fa fa-times"></i>{{cancelButtonLabel}}
+                    </button>
+                  </td>
+            </tr>
+      </tbody>
+      <tfoot>
+            <tr>
+                  <th *ngFor="let title of service.tableHeadersObjects"></th>
+                  <th>
+                        <button (click)="addRow()">
+                          <i class="fa fa-plus"></i>{{addButtonLabel}}
+                      </button>
+                  </th>
+            </tr>
+      </tfoot>
+</table>

@@ -13,6 +13,44 @@ export class EditableTableService {
   isEditing: TableRow[] = [];
   constructor() { }
 
+  createTable(headers, content, dataType) {
+
+    this.createHeaders(headers, dataType);
+
+    let tableCells: TableCell[] = [];
+
+    if (content.length > 0) {
+      for (const row of content) {
+        for (const cell of row) {
+          tableCells.push(
+            new TableCell(cell),
+          );
+        }
+        this.tableRowsObjects.push(new TableRow(tableCells));
+        tableCells = [];
+      }
+    }
+  }
+
+  createTableWithIds(headers, content, dataType) {
+
+    this.createHeaders(headers, dataType);
+
+    let tableCells: TableCell[] = [];
+
+    if (content.length > 0) {
+      for (const row of content) {
+        for (let i = 1; i < row.length; i++) {
+          tableCells.push(
+            new TableCell(row[i]),
+          );
+        }
+        this.tableRowsObjects.push(new TableRow(tableCells, row[0]));
+        tableCells = [];
+      }
+    }
+  }
+
   addRow() {
     const newCells: TableCell[] = [];
     let newRow: TableRow;
@@ -55,5 +93,15 @@ export class EditableTableService {
       return 'boolean';
     }
     return '';
+  }
+
+  private createHeaders(headers, dataType) {
+    for (const obj of headers) {
+      this.tableHeadersObjects.push(
+        new TableCell(obj)
+      );
+
+      this.dataType = dataType;
+    }
   }
 }

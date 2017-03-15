@@ -10,14 +10,16 @@ export class TestingComponent implements OnInit {
 
   tableHeaders = ['Header 1', 'Header 2', 'Header 3'];
 
-  tableRowsWithId = [];
+  tableRowsWithId = [
+    [1, 'Example', 'Example', true]
+  ];
   dataType = ['string', 'string', 'boolean'];
 
   constructor(private service: EditableTableService) {
-
   }
 
   ngOnInit() {
+    this.service.createTableWithIds(this.tableHeaders, this.tableRowsWithId, this.dataType);
   }
 
   onRemove(row: any) {

@@ -109,36 +109,10 @@ export class EditableTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    for (const obj of this.tableHeaders) {
-      this.service.tableHeadersObjects.push(
-        new TableCell(obj)
-      );
-
-      this.service.dataType = this.dataType;
-    }
-
-    let tableCells: TableCell[] = [];
-
     if (this.tableRows.length > 0) {
-      for (const row of this.tableRows) {
-        for (const cell of row) {
-          tableCells.push(
-            new TableCell(cell),
-          );
-        }
-        this.service.tableRowsObjects.push(new TableRow(tableCells));
-        tableCells = [];
-      }
+      this.service.createTable(this.tableHeaders, this.tableRows, this.dataType);
     } else if (this.tableRowsWithId.length > 0) {
-      for (const row of this.tableRowsWithId) {
-        for (let i = 1; i < row.length; i++) {
-          tableCells.push(
-            new TableCell(row[i]),
-          );
-        }
-        this.service.tableRowsObjects.push(new TableRow(tableCells, row[0]));
-        tableCells = [];
-      }
+      this.service.createTableWithIds(this.tableHeaders, this.tableRowsWithId, this.dataType);
     }
   }
 
