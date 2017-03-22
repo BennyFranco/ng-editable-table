@@ -10,7 +10,7 @@ import { EditableTableService } from './editable-table.service';
 @Component({
   selector: 'nv-editable-table',
   template: `
-              <table class="{{class}}">
+          <table class="{{class}}">
               <thead>
                 <tr>
                   <th *ngFor="let title of service.tableHeadersObjects">{{title.content}}</th>
@@ -24,8 +24,17 @@ import { EditableTableService } from './editable-table.service';
                     <span *ngIf="service.isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) == 'boolean'">
                       {{cell.content ? 'Activo' : 'Inactivo'}}
                     </span>
-                    <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean'">
+                     <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean' 
+                     && !isRequired">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                    </div>
+                    <div  class="ui input requiredInput" [ngClass]="{'error': !cell.content && cell.touched}"
+                       *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean' && isRequired">
+                      <input type="text" [(ngModel)]="cell.content" [name]="cell.content" #[cell.content]="ngModel" required />
+                      <div [ngClass]="{'show': !cell.content && cell.touched, 
+                                       'hide': cell.content}" class = "divmessage" style="Color: red;"  [hidden]="cell.content">
+                           <div>{{requiredMessage}}</div>
+                      </div>
                     </div>
         <div *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
             <div class="ui toggle checkbox">
@@ -47,7 +56,7 @@ import { EditableTableService } from './editable-table.service';
                       <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
                     </button>
                     <button class={{deleteButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows"
-                     (click)="cancelEdition(row)">
+                     (click)="deleteRow(row)">
                       <i class="{{deleteIcon}}"></i>{{cancelButtonLabel}}
                     </button>
                   </td>
@@ -65,7 +74,11 @@ import { EditableTableService } from './editable-table.service';
               </tfoot>
             </table>
   `,
-  styles: [`tfoot{text-align: right;}`],
+  styles: [`tfoot{text-align: right;} 
+  .error{color:red} 
+  .requiredInput.divmessage{display:none} 
+  .requiredInput.divmessage.show{display:block} 
+  .requiredInput.divmessage.hide{display:none}`],
   providers: [EditableTableService]
 })
 export class EditableTableComponent implements OnInit {
@@ -98,6 +111,10 @@ export class EditableTableComponent implements OnInit {
   @Input('class') class: string;
   @Input('data-type') dataType = [];
 
+  @Input() errorClass = 'error';
+  @Input('is-required') isRequired = true;
+  @Input() requiredMessage = 'Campo Requerido';
+
 
   @Output() onSave = new EventEmitter<any>();
   @Output() onRemove = new EventEmitter<any>();
@@ -129,6 +146,11 @@ export class EditableTableComponent implements OnInit {
   }
 
   saveRow(selectedRow: TableRow) {
+    for (const cell of selectedRow.cells) {
+      if (cell.content == null || cell.content === '') {
+        return;
+      }
+    }
     this.service.saveRow(selectedRow);
     const dir = [];
 
