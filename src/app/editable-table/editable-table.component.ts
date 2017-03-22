@@ -77,7 +77,7 @@ import { EditableTableService } from './editable-table.service';
   styles: [`tfoot{text-align: right;} 
   .error{color:red} 
   .requiredInput.divmessage{display:none} 
-  .requiredInput.divmessage.show{display:block} 
+  .requiredInput.divmessage.show{display:block !important} 
   .requiredInput.divmessage.hide{display:none}`],
   providers: [EditableTableService]
 })
