@@ -17,8 +17,12 @@
                         <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) == 'boolean'">
                       {{cell.content ? 'Activo' : 'Inactivo'}}
                     </span>
-                        <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) !== 'boolean'">
-                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                        <div class="ui input requiredInput" [ngClass]="{'error': !cell.content && cell.touched}" *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) !== 'boolean'">
+                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content" #[cell.content]="ngModel" required />
+                              <div [ngClass]="{'show': !cell.content && cell.touched, 
+                                       'hide': cell.content}" class="divmessage" style="Color: red;" [hidden]="cell.content">
+                                    <div>{{requiredMessage}}</div>
+                              </div>
                         </div>
                         <div *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
                               <div class="ui toggle checkbox">

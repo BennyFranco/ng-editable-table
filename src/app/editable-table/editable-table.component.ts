@@ -24,18 +24,17 @@ import { EditableTableService } from './editable-table.service';
                     <span *ngIf="service.isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) == 'boolean'">
                       {{cell.content ? 'Activo' : 'Inactivo'}}
                     </span>
-                     <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean' 
+                    <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean' 
                      && !isRequired">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
                     </div>
-                    <div  class="ui input requiredInput" [ngClass]="{'error': !cell.content && cell.touched}"
-                       *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean' && isRequired">
+                    <div class="ui input requiredInput" [ngClass]="{errorClass: !cell.content && cell.touched}" *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) !== 'boolean' && isRequired">
                       <input type="text" [(ngModel)]="cell.content" [name]="cell.content" #[cell.content]="ngModel" required />
-                      <div [ngClass]="{'show': !cell.content && cell.touched, 
-                                       'hide': cell.content}" class = "divmessage" style="Color: red;"  [hidden]="cell.content">
-                           <div>{{requiredMessage}}</div>
-                      </div>
-                    </div>
+                        <div [ngClass]="{'show': !cell.content && cell.touched, 
+                                  'hide': cell.content}" class="divmessage" style="Color: red;" [hidden]="cell.content">
+                              <div>{{requiredMessage}}</div>
+                          </div>
+                        </div>
         <div *ngIf="!(service.isEditing.indexOf(row) == -1) && checkTypeOf(cell.content) === 'boolean'" class="field checkboxContainer">
             <div class="ui toggle checkbox">
                 <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
@@ -75,7 +74,7 @@ import { EditableTableService } from './editable-table.service';
             </table>
   `,
   styles: [`tfoot{text-align: right;} 
-  .error{color:red} 
+  .myerror{color:red} 
   .requiredInput.divmessage{display:none} 
   .requiredInput.divmessage.show{display:block !important} 
   .requiredInput.divmessage.hide{display:none}`],
@@ -111,8 +110,8 @@ export class EditableTableComponent implements OnInit {
   @Input('class') class: string;
   @Input('data-type') dataType = [];
 
-  @Input() errorClass = 'error';
-  @Input('is-required') isRequired = true;
+  @Input() errorClass = 'myerror';
+  @Input() isRequired = true;
   @Input() requiredMessage = 'Campo Requerido';
 
 
@@ -126,9 +125,9 @@ export class EditableTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.tableRows.length > 0) {
+    if (this.tableRows.length > 0 || this.tableRows !== undefined) {
       this.service.createTable(this.tableHeaders, this.tableRows, this.dataType);
-    } else if (this.tableRowsWithId.length > 0) {
+    } else if (this.tableRowsWithId.length > 0 || this.tableRowsWithId !== undefined ) {
       this.service.createTableWithIds(this.tableHeaders, this.tableRowsWithId, this.dataType);
     }
   }
