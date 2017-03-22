@@ -11,7 +11,7 @@ export class TestingComponent implements OnInit {
   tableHeaders = ['Header 1', 'Header 2', 'Header 3'];
 
   tableRowsWithId = [
-    [1, 'Example', 'Example', true]
+   // [1, 'Example', 'Example', true]
   ];
   dataType = ['string', 'string', 'boolean'];
 
