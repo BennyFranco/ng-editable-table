@@ -81,6 +81,7 @@ export class EditableTableService {
 
   cancelEdition(selectedRow: TableRow) {
     this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
+    this.tableRowsObjects = this.tableRowsObjects.filter(temporalRow => temporalRow !== selectedRow);
   }
 
   deleteRow(selectedRow: TableRow) {
