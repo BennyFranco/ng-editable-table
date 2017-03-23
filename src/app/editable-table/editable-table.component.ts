@@ -19,7 +19,7 @@ import { EditableTableService } from './editable-table.service';
               </thead>
               <tbody>
                 <tr class="{{trClass}}" *ngFor="let row of service.tableRowsObjects">
-                  <td class={{tdClass}} *ngFor="let cell of row.cells">
+                  <td class="{{tdClass}}" *ngFor="let cell of row.cells">
                     <span *ngIf="service.isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) !== 'boolean'">{{cell.content}}</span>
                     <span *ngIf="service.isEditing.indexOf(row) === -1 && checkTypeOf(cell.content) == 'boolean'">
                       {{cell.content ? 'Activo' : 'Inactivo'}}
@@ -125,9 +125,9 @@ export class EditableTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.tableRows.length > 0 || this.tableRows !== undefined) {
+    if (this.tableRows.length > 0 || (this.tableRows !== undefined && this.tableRowsWithId.length === 0)) {
       this.service.createTable(this.tableHeaders, this.tableRows, this.dataType);
-    } else if (this.tableRowsWithId.length > 0 || this.tableRowsWithId !== undefined ) {
+    } else if (this.tableRowsWithId.length > 0 || (this.tableRowsWithId !== undefined && this.tableRows.length === 0)) {
       this.service.createTableWithIds(this.tableHeaders, this.tableRowsWithId, this.dataType);
     }
   }
