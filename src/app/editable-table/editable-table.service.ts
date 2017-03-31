@@ -63,9 +63,8 @@ export class EditableTableService {
           newCells.push(new TableCell(''));
       }
     }
-
     this.tableRowsObjects.push(
-      newRow = new TableRow(newCells)
+      newRow = new TableRow(newCells, -1)
     );
 
     this.isEditing.push(newRow);
@@ -80,8 +79,15 @@ export class EditableTableService {
   }
 
   cancelEdition(selectedRow: TableRow) {
-    this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
     this.tableRowsObjects = this.tableRowsObjects.filter(temporalRow => temporalRow !== selectedRow);
+    this.isEditing = this.isEditing.filter(temporalRow => temporalRow !== selectedRow);
+    for (const cell of selectedRow.cells) {
+      if (cell.content == null || cell.content === '') {
+        this.tableRowsObjects = this.tableRowsObjects.filter(err => err !== selectedRow);
+      } else if (selectedRow.id === -1) {
+        this.tableRowsObjects = this.tableRowsObjects.filter(err => err !== selectedRow);
+      }
+    }
   }
 
   deleteRow(selectedRow: TableRow) {
