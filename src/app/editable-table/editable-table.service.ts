@@ -111,4 +111,20 @@ export class EditableTableService {
       this.dataType = dataType;
     }
   }
+
+  isViewEditing(row: TableRow): boolean {
+    return this.isEditing.indexOf(row) !== -1 ? true : false;
+  }
+
+  contentIsBoolean(cell: TableCell): boolean {
+    return this.checkTypeOf(cell.content) === 'boolean' ? true : false;
+  }
+
+  getCellContent(cell: TableCell) {
+    if (this.checkTypeOf(cell.content) !== 'boolean') {
+      return cell.content;
+    } else if (this.checkTypeOf(cell.content) === 'boolean') {
+      return cell.content ? 'Activo' : 'Inactivo';
+    }
+  }
 }

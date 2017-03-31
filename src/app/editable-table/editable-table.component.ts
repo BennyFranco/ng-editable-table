@@ -10,72 +10,66 @@ import { EditableTableService } from './editable-table.service';
 @Component({
   selector: 'nv-editable-table',
   template: `
-          <table class="{{class}}">
-              <thead>
-                <tr>
+<table class="{{class}}">
+      <thead>
+            <tr>
                   <th *ngFor="let title of service.tableHeadersObjects">{{title.content}}</th>
                   <th *ngIf="canEditRows||canDeleteRows"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="{{trClass}}" *ngFor="let row of service.tableRowsObjects">
+            </tr>
+      </thead>
+      <tbody>
+            <tr class="{{trClass}}" *ngFor="let row of service.tableRowsObjects">
                   <td class="{{tdClass}}" *ngFor="let cell of row.cells">
-                    <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) !== 'boolean'">
-                      {{cell.content}}
+                        <span *ngIf="!service.isViewEditing(row)">
+                      {{service.getCellContent(cell)}}
                     </span>
-                    <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) == 'boolean'">
-                      {{cell.content ? 'Activo' : 'Inactivo'}}
-                    </span>
-                    <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) !== 'boolean' 
-                     && !isRequired">
-                      <input ng2focus type="text" [(ngModel)]="cell.content" [name]="cell.content">
-                    </div>
+                        <div class="ui input" *ngIf="service.isViewEditing(row) && !isRequired && !service.contentIsBoolean(cell)">
+                              <input ng2focus type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                        </div>
                         <div class="ui input requiredInput" [ngClass]="{errorClass: !cell.content && cell.touched}" 
-                        *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) !== 'boolean' && isRequired">
-                          <input ng2focus type="text" [(ngModel)]="cell.content" [name]="cell.content" #[cell.content]="ngModel" required />
-                            <div [ngClass]="{'show': !cell.content && cell.touched, 
+                        *ngIf="service.isViewEditing(row) && !service.contentIsBoolean(cell) && isRequired">
+                              <input ng2focus type="text" [(ngModel)]="cell.content" [name]="cell.content" 
+                              #[cell.content]="ngModel" required />
+                              <div [ngClass]="{'show': !cell.content && cell.touched, 
                                       'hide': cell.content}" class="divmessage" style="Color: red;" [hidden]="cell.content">
-                                  <div>{{requiredMessage}}</div>
+                                    <div>{{requiredMessage}}</div>
                               </div>
-                            </div>
-                          <div *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) === 'boolean'" 
-                          class="field checkboxContainer">
+                        </div>
+                        <div *ngIf="service.isViewEditing(row) && service.contentIsBoolean(cell)" 
+                        class="field checkboxContainer">
                               <div class="ui toggle checkbox">
-                                  <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
-                                  <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
+                                    <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
+                                    <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
                               </div>
-                          </div>
+                        </div>
                   </td>
                   <td class={{buttonsTdClass}} *ngIf="canEditRows||canDeleteRows">
-                    <button class={{editButtonClass}} *ngIf="service.isEditing.indexOf(row) === -1 && canEditRows" (click)="editRow(row)">
+                        <button class={{editButtonClass}} *ngIf="!service.isViewEditing(row) && canEditRows" (click)="editRow(row)">
                       <i class="{{editIcon}}"></i>{{editButtonLabel}}
                     </button>
-                    <button class={{editButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows" 
-                      (click)="saveRow(row)">
+                        <button class={{editButtonClass}} *ngIf="service.isViewEditing(row) && canEditRows" (click)="saveRow(row)">
                       <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
                     </button>
-                    <button class={{deleteButtonClass}} *ngIf="canDeleteRows && service.isEditing.indexOf(row) === -1" 
-                    (click)="deleteRow(row)">
+                        <button class={{deleteButtonClass}} *ngIf="canDeleteRows && !service.isViewEditing(row)" (click)="deleteRow(row)">
                       <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
                     </button>
-                    <button class={{deleteButtonClass}} *ngIf="!(service.isEditing.indexOf(row) == -1) && canEditRows"
-                     (click)="deleteRow(row)">
+                        <button class={{deleteButtonClass}} *ngIf="service.isViewEditing(row) && canEditRows" (click)="deleteRow(row)">
                       <i class="{{deleteIcon}}"></i>{{cancelButtonLabel}}
                     </button>
                   </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
+            </tr>
+      </tbody>
+      <tfoot>
+            <tr>
                   <th *ngFor="let title of service.tableHeadersObjects"></th>
                   <th *ngIf="canEditRows||canDeleteRows">
-                      <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
+                        <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
                           <i class="{{addIcon}}"></i>{{addButtonLabel}}
                       </button>
                   </th>
-                </tr>
-              </tfoot>
-            </table>
+            </tr>
+      </tfoot>
+</table>
   `,
   styles: [`tfoot{text-align: right;} 
   .myerror{color:red} 
