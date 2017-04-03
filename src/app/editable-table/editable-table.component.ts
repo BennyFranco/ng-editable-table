@@ -24,11 +24,11 @@ import { EditableTableService } from './editable-table.service';
                       {{service.getCellContent(cell)}}
                     </span>
                         <div class="ui input" *ngIf="service.isViewEditing(row) && !isRequired && !service.contentIsBoolean(cell)">
-                              <input ng2focus type="text" [(ngModel)]="cell.content" [name]="cell.content">
+                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
                         </div>
                         <div class="ui input requiredInput" [ngClass]="{errorClass: !cell.content && cell.touched}" 
                         *ngIf="service.isViewEditing(row) && !service.contentIsBoolean(cell) && isRequired">
-                              <input ng2focus type="text" [(ngModel)]="cell.content" [name]="cell.content" 
+                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content" 
                               #[cell.content]="ngModel" required />
                               <div [ngClass]="{'show': !cell.content && cell.touched, 
                                       'hide': cell.content}" class="divmessage" style="Color: red;" [hidden]="cell.content">

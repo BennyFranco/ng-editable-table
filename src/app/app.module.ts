@@ -10,7 +10,7 @@ import { TestingComponent } from './testing/testing.component';
     BrowserModule,
     CommonModule,
     FormsModule,
-    EditableTableModule
+    EditableTableModule,
   ],
   declarations: [
     TestingComponent
