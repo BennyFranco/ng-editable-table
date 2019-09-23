@@ -6,13 +6,16 @@
     "sourceMap": true,
     "declaration": true,
     "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
+    "inlineSources": true,
     "target": "es2015",
     "skipLibCheck": false,
     "stripInternal": true,
+    "noEmitHelpers": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "typeRoots": [
@@ -24,13 +27,15 @@
     ]
   },
   "exclude": [
-    "node_modules",
+    "**/node_modules/**/*",
     "**/*.spec.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "../../temp/factories",
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
     "entryModule": "app/editable-table/editable-table.module#EditableTableModule"
   }
 }
