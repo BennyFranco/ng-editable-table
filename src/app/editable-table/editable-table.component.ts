@@ -6,6 +6,7 @@ import { EditableTableService } from './editable-table.service';
 
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'ng-editable-table',
   template: `
 <table class="{{class}}">
@@ -111,8 +112,8 @@ export class EditableTableComponent implements OnInit {
   @Input() requiredMessage = 'Campo Requerido';
 
 
-  @Output() onSave = new EventEmitter<any>();
-  @Output() onRemove = new EventEmitter<any>();
+  @Output() save = new EventEmitter<any>();
+  @Output() remove = new EventEmitter<any>();
 
   service: EditableTableService;
 
@@ -149,23 +150,23 @@ export class EditableTableComponent implements OnInit {
     this.service.saveRow(selectedRow);
     const dir = [];
 
-    for (let i = 0; i < selectedRow.cells.length; i++) {
-      dir.push(selectedRow.cells[i].content);
+    for (const item of selectedRow.cells) {
+      dir.push(item.content);
     }
     const obj = { id: selectedRow.id, cells: dir };
 
-    this.onSave.emit(obj);
+    this.save.emit(obj);
   }
 
   deleteRow(selectedRow: TableRow) {
     this.service.deleteRow(selectedRow);
     const dir = [];
 
-    for (let i = 0; i < selectedRow.cells.length; i++) {
-      dir.push(selectedRow.cells[i].content);
+    for (const item of selectedRow.cells) {
+      dir.push(item.content);
     }
     const obj = { id: selectedRow.id, cells: dir };
 
-    this.onRemove.emit(obj);
+    this.remove.emit(obj);
   }
 }
