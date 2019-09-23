@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { EditableTableService } from '../editable-table/editable-table.service';
+import { EditableTableService } from './editable-table/editable-table.service';
 
 @Component({
-  selector: 'nv-testing',
-  templateUrl: './testing.component.html',
-  styleUrls: ['./testing.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class TestingComponent implements OnInit {
-
+export class AppComponent  implements OnInit {
   tableHeaders = ['Header 1', 'Header 2', 'Header 3'];
 
   tableRowsWithId: any[][] = [
@@ -17,7 +16,7 @@ export class TestingComponent implements OnInit {
 
   dataType = ['string', 'string', 'boolean'];
 
-  constructor(private service: EditableTableService) {
+  constructor(public service: EditableTableService) {
 
   }
 
