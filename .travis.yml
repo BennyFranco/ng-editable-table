@@ -3,7 +3,6 @@ node_js:
   - 7
 
 before_script:
-  - npm install angular-cli
   - npm install
 
 script:
