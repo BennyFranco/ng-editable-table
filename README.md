@@ -61,12 +61,12 @@ export class AppComponent {
 And finally add this directive to your html:
 
 ```html
-<nv-editable-table [table-headers]="tableHeaders" [table-rows]="tableRows" ></nv-editable-table>
+<ng-editable-table [table-headers]="tableHeaders" [table-rows]="tableRows" ></ng-editable-table>
 ```
 
 ## Directive Options
 
-You can customize the table options by the `nv-editable-table` directive, the available options are:
+You can customize the table options by the `ng-editable-table` directive, the available options are:
 
 |       Option        | Value                  | Description                                    |
 | ------------------- |------------------------|------------------------------------------------|
@@ -104,7 +104,7 @@ of the row or some object, and the cells array saves the content of the each cel
 
 ### Example
 ```html
-<nv-editable-table [table-headers]="tableHeaders" 
+<ng-editable-table [table-headers]="tableHeaders" 
                    [table-rows]="tableRows"  
                    [add-button-label] = "''"
                    [edit-button-label] = "''"
@@ -121,7 +121,7 @@ of the row or some object, and the cells array saves the content of the each cel
                    [can-edit-rows]="false"
                    [can-add-rows]="true"
                    class="ui table">
-</nv-editable-table>
+</ng-editable-table>
 ```
 #### Normal view using Semantic-ui styles
 ![Normal view][example-image-one]
