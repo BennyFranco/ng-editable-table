@@ -1,14 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 import { TableRow } from '../util/table-row';
-import { TableCell } from '../util/table-cell';
 
 import { EditableTableService } from './editable-table.service';
 
 
 @Component({
-  selector: 'nv-editable-table',
+  selector: 'ng-editable-table',
   template: `
 <table class="{{class}}">
       <thead>
@@ -26,16 +24,16 @@ import { EditableTableService } from './editable-table.service';
                         <div class="ui input" *ngIf="service.isViewEditing(row) && !isRequired && !service.contentIsBoolean(cell)">
                               <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
                         </div>
-                        <div class="ui input requiredInput" [ngClass]="{errorClass: !cell.content && cell.touched}" 
+                        <div class="ui input requiredInput" [ngClass]="{errorClass: !cell.content && cell.touched}"
                         *ngIf="service.isViewEditing(row) && !service.contentIsBoolean(cell) && isRequired">
-                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content" 
+                              <input type="text" [(ngModel)]="cell.content" [name]="cell.content"
                               #[cell.content]="ngModel" required />
-                              <div [ngClass]="{'show': !cell.content && cell.touched, 
+                              <div [ngClass]="{'show': !cell.content && cell.touched,
                                       'hide': cell.content}" class="divmessage" style="Color: red;" [hidden]="cell.content">
                                     <div>{{requiredMessage}}</div>
                               </div>
                         </div>
-                        <div *ngIf="service.isViewEditing(row) && service.contentIsBoolean(cell)" 
+                        <div *ngIf="service.isViewEditing(row) && service.contentIsBoolean(cell)"
                         class="field checkboxContainer">
                               <div class="ui toggle checkbox">
                                     <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
@@ -71,10 +69,10 @@ import { EditableTableService } from './editable-table.service';
       </tfoot>
 </table>
   `,
-  styles: [`tfoot{text-align: right;} 
-  .myerror{color:red} 
-  .requiredInput.divmessage{display:none} 
-  .requiredInput.divmessage.show{display:block !important} 
+  styles: [`tfoot{text-align: right;}
+  .myerror{color:red}
+  .requiredInput.divmessage{display:none}
+  .requiredInput.divmessage.show{display:block !important}
   .requiredInput.divmessage.hide{display:none}`],
   providers: [EditableTableService]
 })
