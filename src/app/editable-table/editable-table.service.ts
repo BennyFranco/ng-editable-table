@@ -13,7 +13,7 @@ export class EditableTableService {
   isEditing: TableRow[] = [];
   constructor() { }
 
-  createTable(headers, content, dataType) {
+  createTable(headers: string[], content: any[][], dataType: string[]) {
 
     this.createHeaders(headers, dataType);
 
@@ -32,7 +32,7 @@ export class EditableTableService {
     }
   }
 
-  createTableWithIds(headers, content, dataType) {
+  createTableWithIds(headers: string[], content: any[][], dataType: string[]) {
 
     this.createHeaders(headers, dataType);
 
@@ -102,7 +102,7 @@ export class EditableTableService {
     return '';
   }
 
-  private createHeaders(headers, dataType) {
+  private createHeaders(headers: string[], dataType: string[]) {
     for (const obj of headers) {
       this.tableHeadersObjects.push(
         new TableCell(obj)

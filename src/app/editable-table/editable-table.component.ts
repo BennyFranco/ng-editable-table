@@ -6,7 +6,6 @@ import { EditableTableService } from './editable-table.service';
 
 
 @Component({
-  // tslint:disable-next-line: component-selector
   selector: 'ng-editable-table',
   templateUrl: './editable-table.component.html',
   styleUrls: ['./editable-table.component.css'],
@@ -40,7 +39,7 @@ export class EditableTableComponent implements OnInit {
   @Input('td-class') tdClass: string;
   @Input('buttons-td-class') buttonsTdClass: string;
   @Input('class') class: string;
-  @Input('data-type') dataType = [];
+  @Input('data-type') dataType: string[] = [];
 
   @Input() errorClass = 'myerror';
   @Input() isRequired = true;
