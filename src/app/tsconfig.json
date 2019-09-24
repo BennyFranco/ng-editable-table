@@ -1,8 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./app",
     "outDir": "../../dist",
+    "rootDir":"./editable-table",
     "sourceMap": true,
     "declaration": true,
     "downlevelIteration": true,
@@ -26,6 +26,9 @@
       "dom"
     ]
   },
+  "include": [
+    "editable-table/**/*.ts"
+  ],
   "exclude": [
     "**/node_modules/**/*",
     "**/*.spec.ts"

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { TableRow } from '../util/table-row';
-import { TableCell } from '../util/table-cell';
+import { TableRow } from './util/table-row';
+import { TableCell } from './util/table-cell';
 
 @Injectable()
 export class EditableTableService {

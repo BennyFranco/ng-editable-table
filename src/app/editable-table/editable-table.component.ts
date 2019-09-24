@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { TableRow } from '../util/table-row';
+import { TableRow } from './util/table-row';
 
 import { EditableTableService } from './editable-table.service';
 
