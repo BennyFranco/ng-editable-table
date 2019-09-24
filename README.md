@@ -102,7 +102,17 @@ You can catch the edit and delete events using the directive outputs:
 The structure of the event is `{id: number, cells: Array[]}`, the id works like an identificator
 of the row or some object, and the cells array saves the content of the each cell in the row.
 
-### Example
+### Default Format Example
+```html
+<ng-editable-table [table-headers]="tableHeaders" 
+                   [table-rows-with-id]="tableRowsWithId" 
+                   [data-type]="dataType" 
+                   (onRemove)="onRemove($event)"
+                   class="ui table">
+</ng-editable-table>
+```
+
+### Semantic Integration Example
 ```html
 <ng-editable-table [table-headers]="tableHeaders" 
                    [table-rows]="tableRows"  
