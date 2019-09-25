@@ -1,5 +1,5 @@
-export * from './editable-table.service';
-export * from './editable-table.component';
-export * from './editable-table.module';
-export * from './util/table-cell';
-export * from './util/table-row';
+export { EditableTableService } from './editable-table.service';
+export { EditableTableComponent } from './editable-table.component';
+export { EditableTableModule } from './editable-table.module';
+export { TableCell } from './util/table-cell';
+export { TableRow } from './util/table-row';
