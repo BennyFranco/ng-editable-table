@@ -1,60 +1,60 @@
 <table class="{{class}}">
   <thead>
-        <tr>
-              <th *ngFor="let title of service.tableHeadersObjects">{{title.content}}</th>
-              <th *ngIf="canEditRows||canDeleteRows"></th>
-        </tr>
+    <tr>
+      <th *ngFor="let title of service.tableHeadersObjects">{{title.content}}</th>
+      <th *ngIf="canEditRows||canDeleteRows"></th>
+    </tr>
   </thead>
   <tbody>
-        <tr class="{{trClass}}" *ngFor="let row of service.tableRowsObjects">
-              <td class="{{tdClass}}" *ngFor="let cell of row.cells">
-                    <span *ngIf="!service.isViewEditing(row)">
-                  {{service.getCellContent(cell)}}
-                </span>
-                    <div class="ui input" *ngIf="service.isViewEditing(row) && !isRequired && !service.contentIsBoolean(cell)">
-                          <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
-                    </div>
-                    <div class="ui input requiredInput" [ngClass]="{errorClass: !cell.content && cell.touched}"
-                    *ngIf="service.isViewEditing(row) && !service.contentIsBoolean(cell) && isRequired">
-                          <input type="text" [(ngModel)]="cell.content" [name]="cell.content"
-                          #[cell.content]="ngModel" required />
-                          <div [ngClass]="{'show': !cell.content && cell.touched,
-                                  'hide': cell.content}" class="divmessage" style="Color: red;" [hidden]="cell.content">
-                                <div>{{requiredMessage}}</div>
-                          </div>
-                    </div>
-                    <div *ngIf="service.isViewEditing(row) && service.contentIsBoolean(cell)"
-                    class="field checkboxContainer">
-                          <div class="ui toggle checkbox">
-                                <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
-                                <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
-                          </div>
-                    </div>
-              </td>
-              <td class={{buttonsTdClass}} *ngIf="canEditRows||canDeleteRows">
-                    <button class={{editButtonClass}} *ngIf="!service.isViewEditing(row) && canEditRows" (click)="editRow(row)">
-                  <i class="{{editIcon}}"></i>{{editButtonLabel}}
-                </button>
-                    <button class={{editButtonClass}} *ngIf="service.isViewEditing(row) && canEditRows" (click)="saveRow(row)">
-                  <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
-                </button>
-                    <button class={{deleteButtonClass}} *ngIf="canDeleteRows && !service.isViewEditing(row)" (click)="deleteRow(row)">
-                  <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
-                </button>
-                    <button class={{deleteButtonClass}} *ngIf="service.isViewEditing(row) && canEditRows" (click)="deleteRow(row)">
-                  <i class="{{deleteIcon}}"></i>{{cancelButtonLabel}}
-                </button>
-              </td>
-        </tr>
+    <tr class="{{trClass}}" *ngFor="let row of service.tableRowsObjects">
+      <td class="{{tdClass}}" *ngFor="let cell of row.cells">
+        <span *ngIf="!service.isViewEditing(row)">
+          {{service.getCellContent(cell)}}
+        </span>
+        <div class="ui input" *ngIf="service.isViewEditing(row) && !isRequired && !service.contentIsBoolean(cell)">
+          <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+        </div>
+        <div class="ui input requiredInput" [ngClass]="{errorClass: !cell.content && cell.touched}"
+          *ngIf="service.isViewEditing(row) && !service.contentIsBoolean(cell) && isRequired">
+          <input type="text" [(ngModel)]="cell.content" [name]="cell.content" #[cell.content]="ngModel" required />
+          <div [ngClass]="{'show': !cell.content && cell.touched,
+                                  'hide': cell.content}" class="divmessage" style="Color: red;"
+            [hidden]="cell.content">
+            <div>{{requiredMessage}}</div>
+          </div>
+        </div>
+        <div *ngIf="service.isViewEditing(row) && service.contentIsBoolean(cell)" class="field checkboxContainer">
+          <div class="ui toggle checkbox">
+            <input type="checkbox" name="public" [(ngModel)]="cell.content" name="active">
+            <label>{{cell.content ? 'Activo' : 'Inactivo'}}</label>
+          </div>
+        </div>
+      </td>
+      <td class={{buttonsTdClass}} *ngIf="canEditRows||canDeleteRows">
+        <button class={{editButtonClass}} *ngIf="!service.isViewEditing(row) && canEditRows" (click)="editRow(row)">
+          <i class="{{editIcon}}"></i>{{editButtonLabel}}
+        </button>
+        <button class={{editButtonClass}} *ngIf="service.isViewEditing(row) && canEditRows" (click)="saveRow(row)">
+          <i class="{{saveIcon}}"></i>{{saveButtonLabel}}
+        </button>
+        <button class={{deleteButtonClass}} *ngIf="canDeleteRows && !service.isViewEditing(row)"
+          (click)="deleteRow(row)">
+          <i class="{{deleteIcon}}"></i>{{deleteButtonLabel}}
+        </button>
+        <button class={{deleteButtonClass}} *ngIf="service.isViewEditing(row) && canEditRows" (click)="deleteRow(row)">
+          <i class="{{deleteIcon}}"></i>{{cancelButtonLabel}}
+        </button>
+      </td>
+    </tr>
   </tbody>
   <tfoot>
-        <tr>
-              <th *ngFor="let title of service.tableHeadersObjects"></th>
-              <th *ngIf="canEditRows||canDeleteRows">
-                    <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
-                      <i class="{{addIcon}}"></i>{{addButtonLabel}}
-                  </button>
-              </th>
-        </tr>
+    <tr>
+      <th *ngFor="let title of service.tableHeadersObjects"></th>
+      <th *ngIf="canEditRows||canDeleteRows">
+        <button class={{addButtonClass}} (click)="addRow()" *ngIf="canAddRows">
+          <i class="{{addIcon}}"></i>{{addButtonLabel}}
+        </button>
+      </th>
+    </tr>
   </tfoot>
 </table>
