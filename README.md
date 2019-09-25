@@ -102,6 +102,8 @@ You can catch the edit and delete events using the directive outputs:
 The structure of the event is `{id: number, cells: Array[]}`, the id works like an identificator
 of the row or some object, and the cells array saves the content of the each cell in the row.
 
+__`ng-editable-table` doesn't include an style, is designed to be formated with your site or application css__
+
 ### Default Format Example
 ```html
 <ng-editable-table [table-headers]="tableHeaders" 
@@ -113,6 +115,8 @@ of the row or some object, and the cells array saves the content of the each cel
 ```
 
 ### Semantic Integration Example
+NOTICE: `ng-editable-table` don't include semantic or any other style like bootstrap, this is only to show an example
+of the component integration.
 ```html
 <ng-editable-table [table-headers]="tableHeaders" 
                    [table-rows]="tableRows"  
@@ -137,17 +141,6 @@ of the row or some object, and the cells array saves the content of the each cel
 ![Normal view][example-image-one]
 #### Editing view using Semantic-ui styles
 ![Editing view][example-image-two]
-
-[travis-badge]: https://travis-ci.org/BennyFranco/ng-editable-table.svg?branch=master
-[travis-badge-url]: https://travis-ci.org/BennyFranco/ng-editable-table
-[david-badge]: https://david-dm.org/BennyFranco/ng-editable-table.svg
-[david-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table
-[david-dev-badge]: https://david-dm.org/BennyFranco/ng-editable-table/dev-status.svg
-[david-dev-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table?type=dev
-[npm-badge]: https://img.shields.io/npm/v/ng-editable-table.svg
-[npm-badge-url]: https://www.npmjs.com/package/ng-editable-table
-[example-image-one]: https://raw.githubusercontent.com/BennyFranco/ng-editable-table/trunk/src/assets/normal.png
-[example-image-two]: https://raw.githubusercontent.com/BennyFranco/ng-editable-table/trunk/src/assets/editing.png
 
 # Advance Example
 If you need more control in the structure of the table, you can use the `EditableTableService` and implement your custom table like this.
@@ -239,3 +232,14 @@ export class AppComponent implements OnInit {
       </tfoot>
 </table>
 ```
+
+[travis-badge]: https://travis-ci.org/BennyFranco/ng-editable-table.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/BennyFranco/ng-editable-table
+[david-badge]: https://david-dm.org/BennyFranco/ng-editable-table.svg
+[david-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table
+[david-dev-badge]: https://david-dm.org/BennyFranco/ng-editable-table/dev-status.svg
+[david-dev-badge-url]: https://david-dm.org/BennyFranco/ng-editable-table?type=dev
+[npm-badge]: https://img.shields.io/npm/v/ng-editable-table.svg
+[npm-badge-url]: https://www.npmjs.com/package/ng-editable-table
+[example-image-one]: https://raw.githubusercontent.com/BennyFranco/ng-editable-table/trunk/src/assets/normal.png
+[example-image-two]: https://raw.githubusercontent.com/BennyFranco/ng-editable-table/trunk/src/assets/editing.png
