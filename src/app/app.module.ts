@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { EditableTableModule } from './editable-table/editable-table.module';
+import { BasicExampleComponent } from './basic-example/basic-example.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BasicExampleComponent
   ],
   imports: [
     BrowserModule,
