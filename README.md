@@ -2,6 +2,13 @@
 
 This is a dynamic table for angular, you can add, edit or delete rows without any stylesheet.
 
+
+# Notice
+
+```
+This library is deprecated and will not receive more updates.
+```
+
 [![Build Status][travis-badge]][travis-badge-url]
 [![Dependency Status][david-badge]][david-badge-url]
 [![devDependency Status][david-dev-badge]][david-dev-badge-url]
